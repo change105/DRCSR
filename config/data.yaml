@@ -1,0 +1,53 @@
+# General RecBole settings for DRCSR.
+# Dataset-specific model hyperparameters are in each run_drcsr_*.py script
+# and override the defaults below where applicable.
+
+seed: 2025
+show_progress: False
+
+# --- Data format ---
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+TIME_FIELD: timestamp
+ITEM_LIST_LENGTH_FIELD: item_length
+LIST_SUFFIX: _list
+POSITION_FIELD: position_id
+MAX_ITEM_LIST_LENGTH: 50
+shuffle: True
+
+load_col:
+    inter: [user_id, item_id, timestamp]
+
+# --- 5-core filtering ---
+user_inter_num_interval: "[5,inf)"
+item_inter_num_interval: "[5,inf)"
+
+# --- Training defaults (overridden by run scripts) ---
+epochs: 100
+learner: adam
+learning_rate: 0.001
+train_batch_size: 1024
+eval_batch_size: 2048
+eval_step: 1
+stopping_step: 10
+loss_decimal_place: 5
+metric_decimal_place: 5
+training_neg_sample_num: 0
+
+# --- Evaluation ---
+topk: [5, 10, 20, 50]
+metrics: ["Recall", "NDCG"]
+valid_metric: NDCG@20
+valid_metric_bigger: True
+eval_args:
+    split: { "LS": "valid_and_test" }
+    group_by: user
+    order: TO
+    mode: full
+neg_sampling: ~
+train_neg_sample_args: ~
+
+# --- Data path ---
+data_path: 'dataset/'

@@ -1,0 +1,25 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Dataset images (too large for git)
+dataset/*/image/
+
+# RecBole generated
+log/
+saved/
+*.log
+dataset/*-dataloader/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
