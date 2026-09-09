@@ -74,7 +74,7 @@ def run(dataset="Games", saved=True):
         "freeze_mm": True,
 
         # --- Early stopping ---
-        "stopping_step": 15,
+        "stopping_step": 10,
 
         "metrics": ["Recall", "NDCG"],
         "topk": [5, 10, 20, 50],
