@@ -60,9 +60,6 @@ Download the processed datasets from [this link](TODO) and unzip into the `datas
 ## Running
 
 ```bash
-# Amazon-Baby
-python run_drcsr_baby.py
-
 # Amazon-Games
 python run_drcsr_games.py
 
@@ -72,15 +69,7 @@ python run_drcsr_office.py
 
 Each script trains the model, evaluates on the test set, and runs the robustness evaluation (NNDCG@10 and RNDCG@10 under 5%/15%/25% perturbation).
 
-## Main Results
 
-| Method | Games N@10 | Office N@10 | Baby N@10 |
-|--------|-----------|------------|----------|
-| HM4SR  | 0.0687    | 0.0561     | 0.0237   |
-| IISAN  | 0.0631    | 0.0552     | 0.0239   |
-| **DRCSR** | **0.0722** | **0.0628** | **0.0269** |
-
-See the paper for full results including Recall@K, robustness metrics, and ablation studies.
 
 ## Citation
 
