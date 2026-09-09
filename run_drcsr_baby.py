@@ -78,6 +78,7 @@ def run(dataset="Baby", saved=True):
 
         "metrics": ["Recall", "NDCG"],
         "topk": [5, 10, 20, 50],
+        "neg_chunk_size": 0,
     }
 
     config = Config(model=model_cls, dataset=dataset,
