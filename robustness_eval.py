@@ -1,18 +1,12 @@
 """
-鲁棒性评估模块 v7 —— 双绝对指标版 (扰动比例 5% / 15% / 25%)
-
-相比 v6 的改动:
-  1. 默认扰动比例 (0.1, 0.3, 0.5) → (0.05, 0.15, 0.25)
+鲁棒性评估模块  
+   默认扰动比例  (0.05, 0.15, 0.25)
      - 引文支撑: RecDenoiser (WWW 2022 / TOIS 2024) 噪声注入协议为 0-25%
        25% 是标准高扰动档, 50% 在序列推荐里已超出有意义扰动范围
      - CL4SRec / CoSeRec item dropping 典型比例也在 0.1-0.3
-  2. 每个维度结束后打印一行 Avg (三档均值), 便于 summary 表
-  3. 函数结尾 return 结构化 dict, 便于脚本化收集
-
 指标 1: NNDCG@k (Noise-robust NDCG)
   将 r% 的 item 替换为随机 item, 报告绝对 NDCG@k
   越高越好, 直接反映噪声交互下的推荐质量
-
 指标 2: RNDCG@k (Robust NDCG under Sparsity)
   删除 r% 的 item 并紧凑重建, 报告绝对 NDCG@k
   越高越好, 直接反映数据稀疏下的推荐质量
@@ -332,7 +326,7 @@ def robustness_eval(model, test_data, config, logger,
         f"(mean over {[f'{r:.0%}' for r in drop_ratios]})"
     )
 
-    # ========== 最终 Summary (一行, 便于复制进表) ==========
+    # ========== 最终 Summary ==========
     logger.info("=" * 60)
     logger.info("Summary (复制到 paper table):")
     ratio_hdr = "  ".join([f"{r:>6.0%}" for r in drop_ratios])
