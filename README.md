@@ -2,17 +2,20 @@
 
 Official implementation of **"Dual-Phase Reliability Calibration for Robust Multi-modal Sequential Recommendation"**.
 
+
 ## Overview
 
-Multimodal sequential recommendation benefits from fusing visual and textual semantics but suffers from two intertwined challenges:
+Multimodal sequential recommendation enriches user modeling with visual and textual content, but rich content does not necessarily provide reliable preference evidence. Unreliable interactions—such as accidental clicks or gift purchases—may carry strong multimodal semantics that mislead user states and propagate through sequence updates.
 
-- **C1 – Cascading Reliability Degradation:** A noisy interaction with internally consistent multimodal content is amplified by fusion and then propagates through sequential state updates, forming a compound degradation chain.
-- **C2 – Precision–Coverage Dilemma:** Suppressing noise (precision) risks eliminating genuine niche interests, while preserving coverage reintroduces contamination.
+Existing robust methods estimate reliability at the **whole-interaction level** before candidate matching, making preference-irrelevant and ranking-useful semantic aspects difficult to distinguish. This leads to a **Precision–Coverage Dilemma**:
 
-DRCSR resolves both challenges through a dual-phase design:
+- **Preference-Learning Robustness** emphasizes *precision*: avoiding misleading semantics as stable preference patterns.
+- **Intent-Ranking Robustness** emphasizes *coverage*: preserving the user's genuine intents—including niche interests—in the final ranking.
 
-- **Phase I** (state-writing step): Factor-level reliability calibration + gated factor memory → breaks the degradation chain, achieving training robustness.
-- **Phase II** (scoring step): Candidate-aware motive composition → activates genuine niche interests without reintroducing suppressed noise, achieving inference robustness.
+**DRCSR** resolves this dilemma through a dual-phase design operating at the **multimodal semantic factor** level:
+
+- **Phase I** (state-writing): Factor-level reliability calibration + gated factor memory attenuate unreliable factors before they contaminate the user state, while residual retention preserves recoverable evidence.
+- **Phase II** (scoring): Candidate-aware factor recalibration adjusts retained factor contributions according to candidate matching evidence, reactivating genuine intents without reintroducing suppressed noise.
 
 ## Requirements
 
@@ -49,11 +52,12 @@ DRCSR/
     │   └── ...
     ├── Games/
     └── Office/
+    └── Sports/
 ```
 
 ## Dataset Preparation
 
-We evaluate on three [Amazon review datasets](https://cseweb.ucsd.edu/~jmcauley/datasets/amazon_v2/): **Video Games**, **Office Products**, and **Baby**.
+We evaluate on three [Amazon review datasets](https://cseweb.ucsd.edu/~jmcauley/datasets/amazon_v2/): **Video Games**, **Office Products**, and **Baby**, and **Sports and Outdoors**.
 
 Download the processed datasets from [this link](TODO) and unzip into the `dataset/` folder. Each dataset directory should contain the `.inter` interaction file and the pretrained embedding files (`txt_emb.pt`, `img_emb.pt`). Data splitting (leave-one-out) is handled automatically by RecBole.
 
