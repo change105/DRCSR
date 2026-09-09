@@ -74,10 +74,11 @@ def run(dataset="Office", saved=True):
         "freeze_mm": False,
 
         # --- Early stopping ---
-        "stopping_step": 15,
+        "stopping_step": 10,
 
         "metrics": ["Recall", "NDCG"],
         "topk": [5, 10, 20, 50],
+        "neg_chunk_size": 0,
     }
 
     config = Config(model=model_cls, dataset=dataset,
