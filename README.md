@@ -66,9 +66,6 @@ Download the processed datasets from [this link](TODO) and unzip into the `datas
 ```bash
 # Amazon-Games
 python run_drcsr_games.py
-
-# Amazon-Office
-python run_drcsr_office.py
 ```
 
 Each script trains the model, evaluates on the test set, and runs the robustness evaluation (NNDCG@10 and RNDCG@10 under 5%/15%/25% perturbation).
